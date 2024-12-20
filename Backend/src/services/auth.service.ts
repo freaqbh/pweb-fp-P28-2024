@@ -1,6 +1,6 @@
-import { userInterface } from "../models/user.models";
+import { userInterface } from "../models/user.model";
 import bcrypt from "bcrypt";
-import  User  from "../models/user.models";
+import  User  from "../models/user.model";
 
 interface newUser {
     username: string;
