@@ -46,7 +46,7 @@ export default defineComponent({
                 });
                 
                 console.log('Response data:', response.data); // Debug log
-                fund.value = response.data.data; // Ambil array "data" dari response
+                fund.value = response.data.data.filter((item: any) => item.status.toLowerCase() !== 'close');
             } catch (err: any) {
                 error.value = err.response?.data?.message || 'Gagal memuat data';
                 console.error('Error fetching books:', err);

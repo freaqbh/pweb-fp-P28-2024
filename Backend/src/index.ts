@@ -9,6 +9,7 @@ import Donation, { PaymentMethod } from './models/donation.model';
 import Comment from './models/comment.model';
 import FavoriteCrowdfund from './models/favorite.model';
 import User from './models/user.model';
+import { admin } from "middleware/auth";
 
 const cors = require('cors');
 
@@ -48,9 +49,9 @@ app.get('/create-sample-data', async (req, res) => {
   try {
       // Sample User Data with Bcrypt
       const users = [
-          { username: 'John Doe', email: 'john@example.com', password: await bcrypt.hash('password123', 10) },
-          { username: 'Jane Smith', email: 'jane@example.com', password: await bcrypt.hash('securepass456', 10) },
-          { username: 'Alice Brown', email: 'alice@example.com', password: await bcrypt.hash('alice789', 10) },
+          { username: 'John Doe', email: 'john@example.com', password: await bcrypt.hash('password123', 10), admin:true },
+          { username: 'Jane Smith', email: 'jane@example.com', password: await bcrypt.hash('securepass456', 10), admin:false },
+          { username: 'Alice Brown', email: 'alice@example.com', password: await bcrypt.hash('alice789', 10), admin:false },
       ];
       const savedUsers = await User.insertMany(users);
 
