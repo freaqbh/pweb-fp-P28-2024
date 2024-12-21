@@ -1,16 +1,16 @@
 import jwt from 'jsonwebtoken';
-import { type NextFunction } from 'express';
-import { type Request, type Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import User from '../models/user.model';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-export const auth = async (req: Request, res: Response, next: NextFunction) => {
+export const auth = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const authHeader = req.header('Authorization');
         if (!authHeader) {
-            return res.status(401).send({ error: 'Authorization header is missing' });
+            res.status(401).send({ error: 'Authorization header is missing' });
+            return; // Berhenti di sini jika tidak ada header
         }
 
         const token = authHeader.replace('Bearer ', '');
@@ -22,12 +22,14 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
         const user = await User.findOne({ _id: decoded._id, 'tokens.token': token });
 
         if (!user) {
-            return res.status(401).send({ error: 'Invalid token or user not found' });
+            res.status(401).send({ error: 'Invalid token or user not found' });
+            return; // Berhenti di sini jika user tidak ditemukan
         }
 
+        // Tambahkan data user dan token ke objek request
         (req as any).token = token;
         (req as any).user = user;
-        next();
+        next(); // Lanjutkan ke handler berikutnya
     } catch (error) {
         res.status(401).send({ error: 'Please authenticate' });
     }
