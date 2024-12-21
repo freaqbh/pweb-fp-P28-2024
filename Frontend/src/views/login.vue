@@ -50,6 +50,7 @@ export default defineComponent({
                     localStorage.setItem('token', response.data.data.token); // Save token
                     localStorage.setItem('username', response.data.data.user.username); // Save username
                     localStorage.setItem('userId', response.data.data.user._id); // Save user ID
+                    localStorage.setItem('userId', response.data.data.user.admin); // Save user ID
 
                     // Redirect to the crowdfund page
                     alert('Login successful!');

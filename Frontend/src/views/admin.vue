@@ -1,8 +1,5 @@
 <template>
     <div class="dashboard">
-        <router-link to="/admin">
-            <button class="btn">Go to Admin</button>
-        </router-link>
         <div class="catalog">
             <h3>Crowdfund Catalog:</h3>
             <div v-if="loading">Loading crowdfunds...</div>
@@ -41,13 +38,17 @@ export default defineComponent({
                 if (!token) {
                     throw new Error('Token tidak ditemukan. Silakan login.');
                 }
+                const admin = localStorage.getItem('admin');
+                if (!admin) {
+                    throw new Error('Tidak admin.');
+                }
 
                 const response = await axios.get('http://localhost:3000/fund/crowdfunds', {
                     headers: {
                         Authorization: `Bearer ${token}`, // Tambahkan token ke header
                     },
                 });
-                
+
                 console.log('Response data:', response.data); // Debug log
                 fund.value = response.data.data.filter((item: any) => item.status.toLowerCase() !== 'close');
             } catch (err: any) {

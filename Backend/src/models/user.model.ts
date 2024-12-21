@@ -41,7 +41,11 @@ const userSchema = new Schema<userInterface>({
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this;
-    const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_SECRET || "", {
+    const token = jwt.sign(
+        { 
+            _id: user._id.toString(),
+            admin: user.admin // Menyertakan status admin dalam token
+        }, process.env.JWT_SECRET || "", {
         expiresIn: "1h", // Optional: Set token expiration
     });
     user.tokens = user.tokens.concat({ token });
