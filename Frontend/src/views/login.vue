@@ -40,6 +40,7 @@ export default defineComponent({
             try {
                 const response = await axios.post('http://localhost:3000/auth/login', formData);
                 localStorage.setItem('token', response.data.data.token); // Simpan token di browser
+                localStorage.setItem('username', formData.username);
                 alert('Login berhasil!');
                 router.push('/crowdfund'); // Navigasi ke dashboard
             } catch (err: any) {
