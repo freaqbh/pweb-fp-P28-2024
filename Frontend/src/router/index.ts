@@ -4,6 +4,7 @@ import Login from '../views/login.vue';
 import crowdfunddetail from '../views/crowdfund.detail.vue';
 import Landing from '../views/landing.vue';
 import news from '../views/news.vue';
+import success from '../views/success.vue';
 
 // Fungsi untuk memvalidasi token
 function isTokenValid(token: string | null): boolean {
@@ -36,6 +37,7 @@ const routes: Array<RouteRecordRaw> = [
         },
     },
     { path: '/crowdfund/:id', component: crowdfunddetail },
+    { path: '/crowdfund/thank-you/:id', component: success },
 ];
 
 const router = createRouter({
