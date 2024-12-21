@@ -3,6 +3,7 @@
         <div class="catalog">
             <h3>Crowdfund Catalog:</h3>
             <div v-if="loading">Loading crowdfunds...</div>
+            <div v-if="error" class="error">{{ error }}</div>
             <div v-else>
                 <div v-for="item in fund" :key="item._id" class="crowdfund">
                     <h4>{{ item.name }}</h4>

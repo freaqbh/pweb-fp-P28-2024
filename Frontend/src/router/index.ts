@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import crowdfund from '../views/crowdfund.vue';
 import Login from '../views/login.vue';
+import crowdfunddetail from '../views/crowdfund.detail.vue';
 
 // Fungsi untuk memvalidasi token
 function isTokenValid(token: string | null): boolean {
@@ -30,6 +31,7 @@ const routes: Array<RouteRecordRaw> = [
             }
         },
     },
+    { path: '/crowdfund/:id', component: crowdfunddetail },
 ];
 
 const router = createRouter({
