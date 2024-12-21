@@ -47,4 +47,27 @@ export const favoriteController = {
             next(error);
         }
     },
+    
+    async deleteFavorite(req: Request, res: Response, next: NextFunction): Promise<void> {
+        try {
+            const { user_id, crowdfund_id } = req.params;
+
+            if (!user_id || !crowdfund_id) {
+                res.status(400).send({
+                    status: 'error',
+                    message: 'user_id and crowdfund_id are required',
+                });
+                return;
+            }
+
+            const result = await favoriteCrowdfundService.deleteFavorite(user_id, crowdfund_id);
+            res.status(200).send({
+                status: 'success',
+                message: 'Favorite deleted successfully',
+                data: result,
+            });
+        } catch (error) {
+            next(error);
+        }
+    },
 };
