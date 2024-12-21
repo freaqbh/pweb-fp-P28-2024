@@ -6,6 +6,7 @@ interface userInterface extends Document {
     username: string;
     email: string;
     password: string;
+    admin: boolean;
     tokens: { token: string }[];
     generateAuthToken: () => Promise<string>;
 }
@@ -22,6 +23,10 @@ const userSchema = new Schema<userInterface>({
     },
     password: {
         type: String,
+        required: true,
+    },
+    admin: {
+        type: Boolean,
         required: true,
     },
     tokens: [

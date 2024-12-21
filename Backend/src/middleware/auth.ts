@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 import User from '../models/user.model';
 import dotenv from 'dotenv';
+import exp from 'constants';
 
 dotenv.config();
 
@@ -34,3 +35,16 @@ export const auth = async (req: Request, res: Response, next: NextFunction): Pro
         res.status(401).send({ error: 'Please authenticate' });
     }
 };
+
+export const admin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const user = (req as any).user;
+        if (!user.admin) {
+            res.status(403).send({ error: 'You are not authorized to perform this action' });
+            return; // Berhenti di sini jika user bukan admin
+        }
+        next(); // Lanjutkan ke handler berikutnya
+    } catch (error) {
+        res.status(500).send({ error: 'Internal server error' });
+    }
+}

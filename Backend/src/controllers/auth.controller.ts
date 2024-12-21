@@ -24,8 +24,8 @@ export const authcontroller = {
 
     async login(req: Request, res: Response, next: NextFunction) {
         try {
-            const { username, password } = req.body as login;
-            const { user, token } = await auth.login({ username, password });
+            const { email, password } = req.body as login;
+            const { user, token } = await auth.login({ email, password });
             res.status(200).send({
                 status: "success",
                 message: "User logged in successfully",
