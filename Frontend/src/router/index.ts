@@ -2,6 +2,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import crowdfund from '../views/crowdfund.vue';
 import Login from '../views/login.vue';
 import crowdfunddetail from '../views/crowdfund.detail.vue';
+import Landing from '../views/landing.vue';  // Import landing page
 import success from '../views/success.vue';
 
 // Fungsi untuk memvalidasi token
@@ -19,6 +20,7 @@ function isTokenValid(token: string | null): boolean {
 }
 
 const routes: Array<RouteRecordRaw> = [
+    { path: '/', component: Landing },  // Landing page route
     { path: '/login', component: Login },
     {
         path: '/crowdfund',
