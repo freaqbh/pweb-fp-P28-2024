@@ -4,24 +4,25 @@ import  User  from "../models/user.model";
 
 interface newUser {
     username: string;
-    email: string;
+    email: string
     password: string;
+    admin: boolean;
 }
 
 interface login {
-    username: string;
+    email: string;
     password: string;
 }
 
 export type { newUser, login };
 
 export const auth = {
-    async register({ username, email, password }: newUser) {
+    async register({ username, email, password, admin }: newUser) {
         try {
             
             if (!User.db) throw new Error("Database connection error");
 
-            const user = new User({ username, email, password });
+            const user = new User({ username, email, admin, password });
             await user.save();
 
             
@@ -33,13 +34,13 @@ export const auth = {
         }
     },
 
-    async login({ username, password }: login) {
+    async login({ email, password }: login) {
         try {
             
             if (!User.db) throw new Error("Database connection error");
 
             
-            const user = await User.findOne({ username });
+            const user = await User.findOne({ email });
             if (!user) throw new Error("User not found");
 
             
